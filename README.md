@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/Thomascountz/peanuts.png?label=ready&title=Ready)](https://waffle.io/Thomascountz/peanuts)
+[![Code Climate](https://codeclimate.com/github/Thomascountz/peanuts/badges/gpa.svg)](https://codeclimate.com/github/Thomascountz/peanuts)
 # Peanuts. A minimal weekly employee schedule app.
 
 ## Project Overview
