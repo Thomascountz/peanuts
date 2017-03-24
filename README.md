@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Thomascountz/peanuts.png?label=ready&title=Ready)](https://waffle.io/Thomascountz/peanuts)
 # Peanuts. A minimal weekly employee schedule app.
 
 ## Project Overview
