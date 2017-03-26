@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/Thomascountz/peanuts.png?label=ready&title=Ready)](https://waffle.io/Thomascountz/peanuts)
+[![Build Status](https://semaphoreci.com/api/v1/thomascountz1/peanuts/branches/master/badge.svg)](https://semaphoreci.com/thomascountz1/peanuts)
 [![Code Climate](https://codeclimate.com/github/Thomascountz/peanuts/badges/gpa.svg)](https://codeclimate.com/github/Thomascountz/peanuts)
 # Peanuts. A minimal event ticket sales app.
 
