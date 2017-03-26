@@ -1,18 +1,17 @@
-[![Build Status](https://semaphoreci.com/api/v1/thomascountz1/peanuts/branches/master/badge.svg)](https://semaphoreci.com/thomascountz1/peanuts)
 [![Code Climate](https://codeclimate.com/github/Thomascountz/peanuts/badges/gpa.svg)](https://codeclimate.com/github/Thomascountz/peanuts)
 # Peanuts. A minimal event ticket sales app.
 
 ## Project Overview
-Peanuts empowers event managers with the ease of ticket sales and attendee lists. Attendees can easily purchase tickets and have eTickets delievered to their email. 
+Peanuts empowers event managers with the ease of ticket sales and attendee lists. Attendees can easily purchase tickets and have eTickets delivered to their email. The MVP of this platform will only "sell" tickets with a price of $0.
 
 #### Challenge 
-event managers need a way to manage their ticket sales both online and on location. Likewise, attendees need a way to easily purchase tickets.
+Event managers need a way to manage their ticket sales both online and on location. Likewise, attendees need a way to easily purchase tickets.
 
 #### Goals
-- To allow event managers to list their event and availble tickets
-- To allow event managers to maintain a list of attendees 
-- To allow attendees to select a ticket to a particular event
-- To allow attendees to maintain a record of their ticket selection
+- To allow event managers to list their event and available tickets
+- To allow event managers to maintain a list of attendees and ticket sales 
+- To allow attendees to purchse a ticket to a particular event
+- To allow attendees to maintain a record of their ticket purchases
 
 ## System Overview
 
@@ -26,7 +25,7 @@ event managers need a way to manage their ticket sales both online and on locati
   - An attendee can
     - See a list of events and event times
     - Select and purchase a ticket to an event 
-    - Recieve an email with an eTicket (proof of purchase)
+    - Receive an email with an eTicket (proof of purchase)
 
 ## System Architecture
 
