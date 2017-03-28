@@ -31,11 +31,17 @@ textarea {
 
 /* header */
 
+.nav {
+  li {
+    font-size: 1.2em;
+  }
+}
+
 #logo {
   bottom: 0;
   float: left;
   margin-right: 10px;
-  font-size: 1.7em;
+  font-size: 2em;
   color: gray;
   letter-spacing: -1px;
   padding-top: 9px;
