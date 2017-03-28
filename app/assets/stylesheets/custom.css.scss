@@ -62,14 +62,21 @@ footer {
 }
 
 /* landing page */
-.jumbotron {
-  background-color: #70C1B3;
-  img {
+.jumbotron img {
     max-height: 250px;
     float: right;
-  }
 }
 
+#front-page {
+  margin-bottom: 250px;
+  img {
+    margin-bottom: 15px;
+    max-height: 150px;
+  }
+  p {
+    font-size: 1.3em;
+  }
+}
 /* about page */
 
 /* typography */
