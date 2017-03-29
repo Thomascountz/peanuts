@@ -5,7 +5,11 @@
       <h2>
         A minimal event tickets sales app.
       </h2>
-      <div class="btn-group">
+      <div class="btn-group hidden-sm">
+        <%= link_to "sell tickets", '#', class: "btn btn-xlg btn-primary" %>
+        <%= link_to "buy tickets", '#', class: "btn btn-xlg btn-primary" %>
+      </div>
+      <div class="btn-group-vertical visible-sm">
         <%= link_to "sell tickets", '#', class: "btn btn-xlg btn-primary" %>
         <%= link_to "buy tickets", '#', class: "btn btn-xlg btn-primary" %>
       </div>
