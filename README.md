@@ -1,7 +1,10 @@
 [![Build Status](https://semaphoreci.com/api/v1/thomascountz1/peanuts/branches/master/shields_badge.svg)](https://semaphoreci.com/thomascountz1/peanuts)
 [![Code Climate](https://codeclimate.com/github/Thomascountz/peanuts/badges/gpa.svg)](https://codeclimate.com/github/Thomascountz/peanuts)
+![Heroku](https://heroku-badge.herokuapp.com/?app=peanuts-app&style=flat)
 
 # Peanuts. A minimal event tickets sales app.
+
+## Continual Deployment [Here](https://peanuts-app.herokuapp.com/)
 
 ## Project Overview
 Peanuts empowers event managers with the ease of ticket sales and attendee lists. Attendees can easily purchase tickets and have eTickets delivered to their email. The MVP of this platform will only "sell" tickets with a price of $0.
