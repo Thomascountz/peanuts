@@ -6,6 +6,7 @@
 body {
   padding-top: 60px;
   #content {
+    padding-top: 20px;
     padding-bottom: 250px;
     margin-bottom: 20px;
     min-height: 100vh;
@@ -98,11 +99,11 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.8em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   font-weight: normal;
-  color: $gray-light;
+  color: $gray-dark;
 }
 
 p {
