@@ -1,20 +1,14 @@
 require 'rails_helper'
 
-describe 'homepage', type: :feature do
+RSpec.feature "homepage", :type => :feature do
+
+  before(:each) { visit "/" }
+
+  context 'non-signed-in user' do
   
-  before(:each) { visit root_path }
-  
-  context 'when User is not signed in' do
-    
-    scenario 'User sees link to login' do
+    scenario 'User visits the hompage' do
       expect(page).to have_link('log in', href: '#')
-    end
-    
-    scenario 'User sees a link to sell tickets' do
       expect(page).to have_link('sell tickets', href: '#')
-    end
-    
-    scenario 'User sees a link to buy tickets' do
       expect(page).to have_link('buy tickets', href: '#')
     end
     
