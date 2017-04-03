@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Devise for Authorization and Authentication
 gem 'devise', '~> 4.2'
+# Use factory girl to add factories
+gem 'factory_girl_rails', '~> 4.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use sqlite3 as the database for Active Record
