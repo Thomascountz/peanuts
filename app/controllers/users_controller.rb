@@ -1,12 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
+  before_action :authenticate_user!, only: [:dashboard]
   
-  def show
+  def dashboard
     @user = current_user
-    if current_user != @user
-      flash[:alert] = "Oops, something went wrong!"
-      redirect_to root_url
-    end
   end
-  
 end
