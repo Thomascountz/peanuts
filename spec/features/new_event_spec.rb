@@ -22,6 +22,7 @@ RSpec.feature "event", :type => :feature do
       page.click_button('Create event')
       expect(current_path).to eq('/dashboard')
       expect('.alert').to be_present
+      expect(body).to have_content(event.title)
     end
 
     scenario 'User create a new event with invalid inputs' do
