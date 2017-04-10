@@ -10,7 +10,6 @@ RSpec.describe Event, type: :model do
     it { should validate_length_of(:description).is_at_least(50)}
     it { should validate_length_of(:description).is_at_most(450)}
     it { should validate_presence_of(:location) }
-    it { should validate_presence_of(:manager_id) }
     it { should belong_to(:manager).class_name('User') }
   end
 end
