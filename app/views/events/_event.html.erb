@@ -1,0 +1,9 @@
+<li id="event-<%= event.id %>">
+  <span class="title"><%= event.title %></span>
+  <span class="description"><%= event.description %></span>
+  <span class="location"><%= event.location %>
+    <% if current_user == event.manager %>
+      <%= link_to "delete", event, method: :delete, data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+</li>
