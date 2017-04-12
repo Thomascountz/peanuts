@@ -15,6 +15,8 @@ RSpec.feature "event", :type => :feature do
       user = create(:user)
       event = build_stubbed(:event)
       login_as(user)
+
+      # Create event
       visit '/dashboard'
       expect(page).to have_link('', href: '/events/new', count: 2)
       page.click_link('sell tickets')
@@ -26,6 +28,15 @@ RSpec.feature "event", :type => :feature do
       expect(current_path).to eq('/dashboard')
       expect(page).to have_css('div.alert')
       expect(body).to have_content(event.title)
+
+      # Edit event
+      new_title = 'New Title'
+      page.click_link('edit', :match => :first)
+      page.fill_in('Title', with: new_title)
+      page.click_button('Submit')
+      expect(current_path).to eq('/dashboard')
+      expect(page).to have_css('div.alert')
+      expect(body).to have_content(new_title)
     end
 
     scenario 'User creates a new event with invalid inputs' do
