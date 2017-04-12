@@ -16,7 +16,7 @@ RSpec.feature "event", :type => :feature do
       event = build_stubbed(:event)
       login_as(user)
       visit '/dashboard'
-      page.click_button('sell tickets')
+      page.click_link('sell tickets')
       expect(current_path).to eq('/events/new')
       page.fill_in('Title', with: event.title)
       page.fill_in('Description', with: event.description)
