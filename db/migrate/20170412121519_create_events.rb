@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :description
       t.text :location
-      t.integer :manager_id
+      t.integer :manager_id, index: true
 
       t.timestamps
     end
