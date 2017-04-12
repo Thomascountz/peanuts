@@ -27,7 +27,7 @@ RSpec.feature "event", :type => :feature do
       expect(body).to have_content(event.title)
     end
 
-    xscenario 'User creates a new event with invalid inputs' do
+    scenario 'User creates a new event with invalid inputs' do
       user = create(:user)
       event = build_stubbed(:event, title: "",
                                     description: "this is too short.",
@@ -39,7 +39,7 @@ RSpec.feature "event", :type => :feature do
       page.fill_in('Location', with: event.location)
       page.click_button('Submit')
       expect(current_path).to_not eq('/dashboard')
-      expect('.error_explainations'). to be_present
+      expect(page).to have_css('div#error_explaination')
     end
   end
 end
