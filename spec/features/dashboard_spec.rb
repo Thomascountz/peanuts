@@ -23,7 +23,7 @@ RSpec.feature "event", :type => :feature do
       page.fill_in('Location', with: event.location)
       page.click_button('Submit')
       expect(current_path).to eq('/dashboard')
-      expect('.alert').to be_present
+      expect(page).to have_css('div.alert')
       expect(body).to have_content(event.title)
     end
 
@@ -37,7 +37,7 @@ RSpec.feature "event", :type => :feature do
       page.fill_in('Title', with: event.title)
       page.fill_in('Description', with: event.description)
       page.fill_in('Location', with: event.location)
-      page.click_button('Create event')
+      page.click_button('Submit')
       expect(current_path).to_not eq('/dashboard')
       expect('.error_explainations'). to be_present
     end
