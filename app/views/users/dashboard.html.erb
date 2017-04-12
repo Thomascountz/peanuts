@@ -1,12 +1,35 @@
 <h1>Hello <%= @user.first_name %>!</h1>
-<%= link_to "sell tickets", coming_soon_path, class: "btn btn-lg btn-primary" %>
+<%= link_to "sell tickets", new_event_path, class: "btn btn-lg btn-primary" %>
 <%= link_to "buy tickets", coming_soon_path, class: "btn btn-lg btn-primary" %>
 
 <br />
 <div class="row">
   <div class="col-sm-10 col-sm-offset-1">
-  <h2>Welcome to your dashboard.</h2>
-  <p>This is where the magic happens! See your events, track your sales, or just pull up your tickets and track your calendar. All in one place. We like to call this the peanut gallery, feel free to call it that too. To get started, <a href=<%= coming_soon_path %>>set up an event</a> or <a href=<%= coming_soon_path %>>purchase some tickets.</a></p>
-
+    <% if current_user.managed_events.empty? %>
+      <h2>Welcome to your dashboard.</h2>
+      <p>This is where the magic happens! See your events, track your sales, or just pull up your tickets and track your calendar. All in one place. We like to call this the peanut gallery, feel free to call it that too. To get started, <a href=<%= coming_soon_path %>>set up an event</a> or <a href=<%= coming_soon_path %>>purchase some tickets.</a></p>
+    <% else %>
+      <h2>Events you manage.</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th></th>
+           <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.managed_events.each do |event| %>
+            <tr>
+              <td><%= event.title %></td>
+              <td><%= event.description %></td>
+              <td><%= event.location %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
