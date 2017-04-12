@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.managed_events.build(event_params)
     if @event.save
-      flash[:sucess] = "Your event was created!"
+      flash[:success] = "Your event was created!"
       redirect_to dashboard_path
     else
       render 'new'
