@@ -62,5 +62,17 @@ RSpec.feature "event", :type => :feature do
       expect(page).to have_css('div.alert')
       expect(body).to have_content(new_title)
     end
+
+    scenario 'Deletes an event' do
+      event = create(:event)
+      login_as(event.manager)
+      visit '/dashboard'
+      page.click_link('edit', :match => :first)
+      expect(page).to have_button('Cancel my event')
+      page.click_button('Cancel my event')
+      expect(current_path).to eq('/dashboard')
+      expect(page).to have_css('div.alert')
+      expect(body).to_not have_content(event.title)
+    end
   end
 end

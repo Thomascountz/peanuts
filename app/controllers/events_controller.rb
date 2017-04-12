@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @event = current_user.managed_events.build
@@ -27,6 +27,13 @@ class EventsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy
+    flash[:success] = "Your event was cancelled!"
+    redirect_to dashboard_url
   end
 
   private
