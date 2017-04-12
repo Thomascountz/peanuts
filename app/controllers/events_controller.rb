@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
 
   def new
     @event = current_user.managed_events.build
@@ -12,6 +12,20 @@ class EventsController < ApplicationController
       redirect_to dashboard_path
     else
       render 'new'
+    end
+  end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      flash[:success] = "Your event was updated!"
+      redirect_to dashboard_path
+    else
+      render 'edit'
     end
   end
 

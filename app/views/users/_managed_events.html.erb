@@ -5,7 +5,6 @@
       <th>Description</th>
       <th>Location</th>
       <th></th>
-     <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +13,7 @@
         <td><%= event.title %></td>
         <td><%= event.description %></td>
         <td><%= event.location %></td>
+        <td><%= link_to "edit", edit_event_path(event), class: "btn btn-default" %></td>
       </tr>
     <% end %>
   </tbody>
