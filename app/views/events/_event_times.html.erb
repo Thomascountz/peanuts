@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Attendees</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% event_times.each do |event_time| %>
+      <tr>
+        <td><%= event_time.start_time.strftime('%A %b%e @ %l:%M %p') %></td>
+        <td><%= event_time.end_time.strftime('%A %b%e @ %l:%M %p') %></td>
+        <td><%= link_to "0", coming_soon_path, class: "btn btn-danger" %></td>
+        <td><%= link_to "edit", coming_soon_path, class: "btn btn-default" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
