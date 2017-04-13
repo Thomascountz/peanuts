@@ -12,5 +12,13 @@ RSpec.feature "homepage", :type => :feature do
       expect(page).to have_link('buy tickets', href: coming_soon_path)
     end
 
+    scenario 'Signs in as Demo Dan' do
+      create(:user, first_name: 'Dan', email: 'demodan@example.com')
+      expect(page).to have_link('Sign in as Demo Dan', href: demo_path)
+      page.click_link('Sign in as Demo Dan')
+      visit '/dashboard'
+      expect(page).to have_content('Hello Dan!')
+    end
+
   end
 end
