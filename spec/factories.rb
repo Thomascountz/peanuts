@@ -1,5 +1,10 @@
 # Users
 FactoryGirl.define do
+  factory :event_time do
+    start_time "2017-04-13 14:41:27"
+    end_time "2017-04-13 14:41:27"
+    event_id 1
+  end
 
   factory :user, aliases: [:manager] do
     first_name "John"

@@ -1,0 +1,2 @@
+class EventTime < ApplicationRecord
+end
