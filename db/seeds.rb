@@ -8,8 +8,8 @@ user.password_confirmation= "password"
 user.save!
 
 event_1 = user.managed_events.find_or_initialize_by(title: "Dan's Secret Garden")
-event1.description = "This is your change to see me in action. You will never get to experience anything like this again, so do yourself a favor and book now."
-event1.location= "Dixon Place Theater"
+event_1.description = "This is your change to see me in action. You will never get to experience anything like this again, so do yourself a favor and book now."
+event_1.location= "Dixon Place Theater"
 event_1.save!
 
 event_2 = user.managed_events.find_or_initialize_by(title: "Dan's Secret Garden II")
