@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new, :create, :edit, :update, :destroy]
 
   def show
-    @event = Event.find(param[:id])
+    @event = Event.find(params[:id])
+    if @event.manager != current_user
+      flash[:danger] = "There was an error!"
+      redirect_to dashboard_path
+    end
   end
 
   def new
