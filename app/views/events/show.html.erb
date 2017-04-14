@@ -11,7 +11,7 @@
         <%= render 'event_times', event_times: @event.event_times.upcoming %>
       <% end %>
       <% if !@event.event_times.past.empty? %>
-        <h2><%= @event.title %>'s passed show times.</h2>
+        <h2><%= @event.title %>'s past show times.</h2>
         <%= render 'event_times', event_times: @event.event_times.past %>
       <% end %>
     <% end %>

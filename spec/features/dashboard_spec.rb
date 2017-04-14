@@ -74,5 +74,17 @@ RSpec.feature "event", :type => :feature do
       expect(page).to have_css('div.alert')
       expect(body).to_not have_content(event.title)
     end
+
+    scenario 'Visits event page' do
+      event = create(:event)
+      event_time = create(:event_time, start_time: Time.zone.now + 1.hour, event: event)
+      past_event_time = create(:event_time, start_time: Time.zone.now - 1.hour, event: event)
+      login_as(event.manager)
+      visit '/dashboard'
+      page.click_link('tickets')
+      expect(page).to have_content(event.title)
+      expect(page).to have_content('upcoming')
+      expect(page).to have_content('past')
+    end
   end
 end
