@@ -10,9 +10,4 @@ class EventTime < ApplicationRecord
   def upcoming?
     start_time >= Time.zone.now
   end
-
-  # returns true if the event has ended already
-  def past?
-    end_time <= Time.zone.now
-  end
 end
