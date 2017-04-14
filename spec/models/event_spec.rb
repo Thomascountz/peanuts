@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
-  describe 'validations' do
+  describe 'validations and associations' do
     before(:each) { event = build(:event) }
     it { should validate_presence_of(:title) }
     it { should validate_length_of(:title).is_at_most(50)}
