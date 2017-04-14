@@ -2,6 +2,7 @@ class EventTime < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
   # NOT WORKING
+  # Add validation to ensure start time is not in the past
   validate :start_time_before_end_time
   belongs_to :event
   default_scope -> { order(start_time: :asc) }
