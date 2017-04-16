@@ -78,7 +78,11 @@ RSpec.feature "event", :type => :feature do
     scenario 'Visits event page' do
       event = create(:event)
       event_time = create(:event_time, start_time: Time.zone.now + 1.hour, event: event)
-      past_event_time = create(:event_time, start_time: Time.zone.now - 1.hour, event: event)
+
+      # must skip validations in order to save an EventTime record which has a start_time in the past
+      past_event_time = build(:event_time, start_time: Time.zone.now - 1.hour, event: event)
+      past_event_time.save(:validate => false)
+
       login_as(event.manager)
       visit '/dashboard'
       page.click_link('tickets')
