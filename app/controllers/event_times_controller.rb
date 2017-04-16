@@ -1,0 +1,2 @@
+class EventTimesController < ApplicationController
+end
