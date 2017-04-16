@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/demo', to: 'users#demo_sign_in'
 
   resources :events, only: [:show, :new, :create, :edit, :update, :destroy] do
-      resources :event_times, only: [:new, :create]
+      resources :event_times, only: [:new, :create, :edit, :update]
   end
 
   root 'static_pages#index'
