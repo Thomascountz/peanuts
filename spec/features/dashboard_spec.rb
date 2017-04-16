@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "event", :type => :feature do
 
   context 'When a user is not signed in' do
-    scenario 'They try to visit their dashboard' do
+    scenario 'they try to visit their dashboard' do
       visit '/dashboard'
       expect(current_path).to eq('/users/sign_in')
       expect('.alert').to be_present
@@ -11,7 +11,7 @@ RSpec.feature "event", :type => :feature do
   end
 
   context 'When a user is signed in' do
-    scenario 'Creates a new event' do
+    scenario 'they create a new event' do
       user = create(:user)
       login_as(user)
 
@@ -41,7 +41,7 @@ RSpec.feature "event", :type => :feature do
       expect(body).to have_content(event.title)
     end
 
-    scenario 'Edits an event' do
+    scenario 'they edit an event' do
       event = create(:event)
       login_as(event.manager)
       invalid_title = "a" * 51
@@ -63,7 +63,7 @@ RSpec.feature "event", :type => :feature do
       expect(body).to have_content(new_title)
     end
 
-    scenario 'Deletes an event' do
+    scenario 'they delete an event' do
       event = create(:event)
       login_as(event.manager)
       visit '/dashboard'
@@ -75,7 +75,7 @@ RSpec.feature "event", :type => :feature do
       expect(body).to_not have_content(event.title)
     end
 
-    scenario 'Visits event page' do
+    scenario 'they visit event page' do
       event = create(:event)
       event_time = create(:event_time, start_time: Time.zone.now + 1.hour, event: event)
 
@@ -89,6 +89,24 @@ RSpec.feature "event", :type => :feature do
       expect(page).to have_content(event.title)
       expect(page).to have_content('upcoming')
       expect(page).to have_content('past')
+    end
+
+    scenario 'they add an event time to an event' do
+      event_time = build_stubbed(:event_time, event: nil)
+      event = create(:event)
+      login_as(event.manager)
+      visit '/dashboard'
+      page.click_link('tickets')
+      expect(page).to have_content('You currently have no show times.')
+      page.click_link('add tickets')
+      expect(page).to have_content(event.title)
+
+      # Create event time, with valid inputs
+      page.fill_in('Start time', with: event_time.start_time)
+      page.fill_in('End time', with: event_time.end_time)
+      page.click_button('Submit')
+      expect(current_path).to be(event_path(event))
+      expect(page).to have_content('upcoming show times')
     end
   end
 end
