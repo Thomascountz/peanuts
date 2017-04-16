@@ -17,6 +17,22 @@ class EventTimesController < ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:event_id])
+    @event_time = EventTime.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:event_id])
+    @event_time = EventTime.find(params[:id])
+    if @event_time.update(event_time_params)
+      flash[:success] = "Your event was updated!"
+      redirect_to event_path(@event)
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def event_time_params
