@@ -1,6 +1,6 @@
 # Users
 FactoryGirl.define do
-  
+
   factory :user, aliases: [:manager] do
     first_name "John"
     last_name  "Doe"
@@ -17,8 +17,8 @@ FactoryGirl.define do
   end
 
   factory :event_time do
-    start_time { Time.zone.now }
-    end_time { Time.zone.now + 3.hours }
+    start_time { Time.zone.now + 1.hours }
+    end_time { Time.zone.now + 4.hours }
     event
   end
 

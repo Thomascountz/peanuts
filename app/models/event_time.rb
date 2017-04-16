@@ -2,7 +2,8 @@ class EventTime < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
   # TODO Add validation to ensure start time is not in the past
-  validate :start_time_before_end_time
+  validate :end_time_after_start_time
+  validate :start_time_after_now
   belongs_to :event
   default_scope -> { order(start_time: :asc) }
   scope :upcoming, -> { where('start_time >= ?', Time.zone.now) }
@@ -15,12 +16,22 @@ class EventTime < ApplicationRecord
 
   private
 
-  # validates start time is before end time
-  def start_time_before_end_time
+  # validates end time is after start time
+  def end_time_after_start_time
     if start_time.present? && end_time.present?
-      if start_time >= end_time
+      if end_time <= start_time
         errors.add(:end_time, "must be after start time")
       end
     end
   end
+
+  # validates start time is after now
+  def start_time_after_now
+    if start_time.present?
+      if start_time <= Time.zone.now
+        errors.add(:start_time, "must be in the future")
+      end
+    end
+  end
+
 end
