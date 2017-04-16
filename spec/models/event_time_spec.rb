@@ -7,8 +7,7 @@ RSpec.describe EventTime, type: :model do
     it { should validate_presence_of(:end_time) }
     it { should belong_to(:event) }
   end
-
-  # FAILS
+  
   describe 'end time validation' do
 
     it 'should be valid' do
