@@ -1,7 +1,6 @@
 class EventTime < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
-  # TODO Add validation to ensure start time is not in the past
   validate :end_time_after_start_time
   validate :start_time_after_now
   belongs_to :event
