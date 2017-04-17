@@ -112,7 +112,7 @@ RSpec.feature "event", :type => :feature do
 
       # Edit event time, with valid inputs
       new_start_time = (Time.zone.now + 12.hours).beginning_of_hour
-      new_start_time = (Time.zone.now + 16.hours).beginning_of_hour
+      new_end_time = (Time.zone.now + 16.hours).beginning_of_hour
       page.click_link('edit', :match => :first)
       select_date_and_time(new_start_time, from: :event_time_start_time)
       select_date_and_time(new_end_time, from: :event_time_end_time)
