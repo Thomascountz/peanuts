@@ -98,15 +98,28 @@ RSpec.feature "event", :type => :feature do
       visit '/dashboard'
       page.click_link('tickets')
       expect(page).to have_content('You currently have no show times.')
-      page.click_link('add tickets')
-      expect(page).to have_content(event.title)
 
       # Create event time, with valid inputs
+      page.click_link('add tickets')
+      expect(page).to have_content(event.title)
       select_date_and_time(event_time.start_time, from: :event_time_start_time)
       select_date_and_time(event_time.end_time, from: :event_time_end_time)
       page.click_button('Submit')
       expect(current_path).to eq(event_path(event))
       expect(page).to have_content('upcoming show times')
+      expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+
+      # Edit event time, with valid inputs
+      new_start_time = (Time.zone.now + 12.hours).beginning_of_hour
+      new_start_time = (Time.zone.now + 16.hours).beginning_of_hour
+      page.click_link('edit', :match => :first)
+      select_date_and_time(new_start_time, from: :event_time_start_time)
+      select_date_and_time(new_end_time, from: :event_time_end_time)
+      page.click_button('Submit')
+      expect(current_path).to eq(event_path(event))
+      expect(page).to have_content(new_start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(new_end_time.strftime('%A %b %e @ %l:%M %p'))
     end
   end
 
