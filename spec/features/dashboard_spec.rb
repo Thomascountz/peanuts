@@ -102,11 +102,22 @@ RSpec.feature "event", :type => :feature do
       expect(page).to have_content(event.title)
 
       # Create event time, with valid inputs
-      page.fill_in('Start time', with: event_time.start_time)
-      page.fill_in('End time', with: event_time.end_time)
+      select_date_and_time(event_time.start_time, from: :event_time_start_time)
+      select_date_and_time(event_time.end_time, from: :event_time_end_time)
       page.click_button('Submit')
-      expect(current_path).to be(event_path(event))
+      expect(current_path).to eq(event_path(event))
       expect(page).to have_content('upcoming show times')
     end
   end
+
+  private
+
+    def select_date_and_time(date, options = {})
+      field = options[:from]
+      select date.strftime('%Y'), :from => "#{field}_1i" #year
+      select date.strftime('%B'), :from => "#{field}_2i" #month
+      select date.strftime('%d'), :from => "#{field}_3i" #day
+      select date.strftime('%I %p'), :from => "#{field}_4i" #hour
+      select date.strftime('%M'), :from => "#{field}_5i" #minute
+    end
 end
