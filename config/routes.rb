@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get '/coming_soon', to: 'static_pages#coming_soon'
   get '/demo', to: 'users#demo_sign_in'
 
-  resources :events, only: [:new, :create, :edit, :update, :destroy]
+  resources :events, only: [:show, :new, :create, :edit, :update, :destroy] do
+      resources :event_times, only: [:new, :create, :edit, :update, :destroy]
+  end
+
   root 'static_pages#index'
 end

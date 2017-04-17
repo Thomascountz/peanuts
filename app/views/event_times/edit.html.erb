@@ -1,0 +1,8 @@
+<h1 class="center">Edit Date and Time for <%= @event.title %></h1>
+<%= render 'form', event: @event, event_time: @event_time %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3>Need to cancel?</h3>
+    <p>No Stress. <%= button_to "Cancel this showtime", event_event_time_path(@event, @event_time), class: "btn btn-danger", data: { confirm: "This can not be undone." }, method: :delete %></p>
+  </div>
+</div>

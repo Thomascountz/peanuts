@@ -16,4 +16,10 @@ FactoryGirl.define do
     manager
   end
 
+  factory :event_time do
+    start_time { (Time.zone.now + 1.hours).beginning_of_hour }
+    end_time { (Time.zone.now + 4.hours).beginning_of_hour }
+    event
+  end
+
 end
