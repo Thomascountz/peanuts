@@ -1,5 +1,5 @@
 class EventTimesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @event = Event.find(params[:event_id])
@@ -31,6 +31,14 @@ class EventTimesController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @event = Event.find(params[:event_id])
+    @event_time = EventTime.find(params[:id])
+    @event_time.destroy
+    flash[:success] = "Your showtime was cancelled!"
+    redirect_to event_path(@event)
   end
 
   private
