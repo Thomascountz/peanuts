@@ -118,8 +118,18 @@ RSpec.feature "event", :type => :feature do
       select_date_and_time(new_end_time, from: :event_time_end_time)
       page.click_button('Submit')
       expect(current_path).to eq(event_path(event))
+      expect(page).to have_css('div.alert')
       expect(page).to have_content(new_start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(new_end_time.strftime('%A %b %e @ %l:%M %p'))
+
+      # Deletes event time
+      page.click_link('edit', :match => :first)
+      expect(page).to have_button('Cancel this showtime')
+      page.click_button('Cancel this showtime')
+      expect(current_path).to eq(event_path(event))
+      expect(page).to have_css('div.alert')
+      expect(page).to_not have_content(new_start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to_not have_content(new_end_time.strftime('%A %b %e @ %l:%M %p'))
     end
   end
 
