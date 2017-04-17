@@ -1,5 +1,7 @@
 # Demo user
 user = User.find_or_initialize_by(email: "demodan@example.com")
+user.destroy
+user = User.find_or_initialize_by(email: "demodan@example.com")
 user.first_name = "Dan"
 user.last_name= "Demo"
 user.email= "demodan@example.com"
