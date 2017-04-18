@@ -4,6 +4,7 @@ class EventTime < ApplicationRecord
   validate :end_time_after_start_time
   validate :start_time_after_now
   belongs_to :event
+  has_many :tickets, dependent: :destroy
   default_scope -> { order(start_time: :asc) }
   scope :upcoming, -> { where('start_time >= ?', Time.zone.now) }
   scope :past, -> { where('start_time <= ?', Time.zone.now) }

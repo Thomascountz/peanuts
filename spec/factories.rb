@@ -1,9 +1,25 @@
 # Users
 FactoryGirl.define do
 
-  factory :user, aliases: [:manager, :attendee] do
+  factory :user do
     first_name "John"
     last_name  "Doe"
+    email { "#{first_name}#{last_name}@example.com" }
+    password "password"
+    password_confirmation "password"
+  end
+
+  factory :manager, class: User do
+    first_name "Maggie"
+    last_name "Manager"
+    email { "#{first_name}#{last_name}@example.com" }
+    password "password"
+    password_confirmation "password"
+  end
+
+  factory :attendee, class: User do
+    first_name "Andy"
+    last_name "Attendee"
     email { "#{first_name}#{last_name}@example.com" }
     password "password"
     password_confirmation "password"
