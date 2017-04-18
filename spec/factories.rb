@@ -1,11 +1,7 @@
 # Users
 FactoryGirl.define do
-  factory :ticket do
-    attendee_id 1
-    event_time_id 1
-  end
 
-  factory :user, aliases: [:manager] do
+  factory :user, aliases: [:manager, :attendee] do
     first_name "John"
     last_name  "Doe"
     email { "#{first_name}#{last_name}@example.com" }
@@ -24,6 +20,11 @@ FactoryGirl.define do
     start_time { (Time.zone.now + 1.hours).beginning_of_hour }
     end_time { (Time.zone.now + 4.hours).beginning_of_hour }
     event
+  end
+
+  factory :ticket do
+    attendee
+    event_time
   end
 
 end
