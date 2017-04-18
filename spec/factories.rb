@@ -1,5 +1,9 @@
 # Users
 FactoryGirl.define do
+  factory :ticket do
+    attendee_id 1
+    event_time_id 1
+  end
 
   factory :user, aliases: [:manager] do
     first_name "John"
