@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "buy ticket", :type => :feature do
 
-  context 'When a user is signeded in' do
+  context 'When a user is signed in' do
     scenario 'they find and buy a ticket' do
       user = create(:user)
       ticket = create(:ticket)
