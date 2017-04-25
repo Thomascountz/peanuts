@@ -14,7 +14,7 @@
         <td><%= event_time.end_time.strftime('%A %b %e @ %l:%M %p') %></td>
         <td><%= link_to "0", coming_soon_path, class: "btn btn-danger" %></td>
         <% if event_time.upcoming? %>
-          <td><%= link_to "edit", edit_event_event_time_path(@event, event_time), class: "btn btn-default" %></td>
+          <td><%= link_to "edit", edit_event_event_time_path(event, event_time), class: "btn btn-default" %></td>
         <% end %>
       </tr>
     <% end %>
