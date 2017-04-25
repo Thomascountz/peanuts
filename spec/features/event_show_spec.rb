@@ -1,22 +1,28 @@
 require 'rails_helper'
 
-RSpec.feature "event", :type => :feature do  
+RSpec.feature "event show page", :type => :feature do  
 
-  let(:event_time) { create(:event_time) }
+  let(:event) { create(:event) }
+  let(:event_time) { create(:event_time, event: event) }
+  let(:past_event_time) do
+    # must skip validations in order to save an EventTime record which has a start_time in the past
+    past_event_time = build(:event_time, start_time: Time.zone.now - 1.hour, event: event)
+    past_event_time.save(:validate => false)
+    past_event_time
+  end
+  let(:patron) { create(:user) }
 
   context 'when logged in as the event manager' do    
 
-    scenario 'they visit event page' do
-      event = create(:event)
-      event_time = create(:event_time, start_time: Time.zone.now + 1.hour, event: event)
+    before do
+      event
+      event_time
+      past_event_time
+      login_as(event.manager) 
+      visit event_path(event)
+    end
 
-      # must skip validations in order to save an EventTime record which has a start_time in the past
-      past_event_time = build(:event_time, start_time: Time.zone.now - 1.hour, event: event)
-      past_event_time.save(:validate => false)
-
-      login_as(event.manager)
-      visit '/dashboard'
-      page.click_link('tickets')
+    scenario 'user visits event page' do
       expect(page).to have_content(event.title)
       expect(page).to have_content('upcoming')
       expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
@@ -24,27 +30,23 @@ RSpec.feature "event", :type => :feature do
       expect(page).to have_content('past')
       expect(page).to have_content(past_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(past_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_link('edit')
     end
 
-    scenario 'they add an event time to an event' do
-      event_time = build_stubbed(:event_time, event: nil)
-      event = create(:event)
-      login_as(event.manager)
-      visit '/dashboard'
-      page.click_link('tickets')
-      expect(page).to have_content('You currently have no show times.')
-
-      # Create event time, with valid inputs
+    scenario 'user adds an event time to an event' do
+      new_event_time = build_stubbed(:event_time, event: nil)
       page.click_link('add tickets')
       expect(page).to have_content(event.title)
-      select_date_and_time(event_time.start_time, from: :event_time_start_time)
-      select_date_and_time(event_time.end_time, from: :event_time_end_time)
+      select_date_and_time(new_event_time.start_time, from: :event_time_start_time)
+      select_date_and_time(new_event_time.end_time, from: :event_time_end_time)
       page.click_button('Submit')
       expect(current_path).to eq(event_path(event))
       expect(page).to have_content('upcoming show times')
-      expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(new_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(new_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+    end
 
+    scenario "user edits an existing event's event time" do
       # Edit event time, with valid inputs
       new_start_time = (Time.zone.now + 12.hours).beginning_of_hour
       new_end_time = (Time.zone.now + 16.hours).beginning_of_hour
@@ -56,15 +58,15 @@ RSpec.feature "event", :type => :feature do
       expect(page).to have_css('div.alert')
       expect(page).to have_content(new_start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(new_end_time.strftime('%A %b %e @ %l:%M %p'))
+    end
 
-      # Deletes event time
+    scenario "user deletes an existing event's event time" do
       page.click_link('edit', :match => :first)
       expect(page).to have_button('Cancel this showtime')
       page.click_button('Cancel this showtime')
       expect(current_path).to eq(event_path(event))
       expect(page).to have_css('div.alert')
-      expect(page).to_not have_content(new_start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to_not have_content(new_end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to_not have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
     end
   end
 
@@ -72,7 +74,6 @@ RSpec.feature "event", :type => :feature do
 
   context 'when logged in as patron' do
 
-    let(:patron) { create(:user) }
     before { login_as(patron) }
 
     scenario 'user visits the event page' do
