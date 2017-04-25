@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "event", :type => :feature do
+RSpec.feature "dashboard", :type => :feature do
 
   context 'When a user is not signed in' do
     scenario 'they try to visit their dashboard' do
