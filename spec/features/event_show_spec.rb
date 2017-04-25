@@ -19,7 +19,11 @@ RSpec.feature "event", :type => :feature do
       page.click_link('tickets')
       expect(page).to have_content(event.title)
       expect(page).to have_content('upcoming')
+      expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content('past')
+      expect(page).to have_content(past_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(past_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
     end
 
     scenario 'they add an event time to an event' do
@@ -79,5 +83,5 @@ RSpec.feature "event", :type => :feature do
     end
 
   end
-  
+
 end
