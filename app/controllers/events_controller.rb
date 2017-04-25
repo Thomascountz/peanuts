@@ -3,10 +3,6 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    if @event.manager != current_user
-      flash[:danger] = "There was an error!"
-      redirect_to dashboard_path
-    end
   end
 
   def new
