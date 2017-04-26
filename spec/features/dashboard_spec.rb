@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.feature "dashboard", :type => :feature do
 
   context 'When a user is not signed in' do
-    scenario 'they try to visit their dashboard' do
+    scenario 'user visit their dashboard' do
       visit '/dashboard'
       expect(current_path).to eq('/users/sign_in')
       expect('.alert').to be_present
     end
   end
 
-  context 'When a user is signed in' do
-    scenario 'they create a new event' do
+  context 'When an event manager is signed in' do
+    scenario 'user creates a new event' do
       user = create(:user)
       login_as(user)
 
