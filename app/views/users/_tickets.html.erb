@@ -2,16 +2,18 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Start Time</th>
       <th>Location</th>
+      <th>Start Time</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% tickets.each do |ticket| %>
       <tr>
         <td><%= ticket.event_time.event.title %></td>
-        <td><%= ticket.event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
         <td><%= ticket.event_time.event.location %></td>
+        <td><%= ticket.event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
+        <td><%= link_to "view event", event_path(ticket.event_time.event), class: "btn btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>

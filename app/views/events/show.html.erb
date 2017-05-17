@@ -4,17 +4,19 @@
 <% end %>
 <div class="row">
   <div class="col-sm-10 col-sm-offset-1">
+  <h4><%= @event.description %></h4>
+  <br />
     <% if @event.event_times.empty? %>
       <h2>You currently have no show times.</h2>
       <p>Let's change that. To get started, <a href=<%= new_event_event_time_path(@event) %>>set up a show time or two.</a></p>
     <% else %>
       <% if !@event.event_times.upcoming.empty? %>
-        <h2><%= @event.title %>'s upcoming show times.</h2>
+        <h2>Upcoming show times.</h2>
         <%= render 'event_times', event_times: @event.event_times.upcoming, 
                                   event:       @event %>
       <% end %>
       <% if !@event.event_times.past.empty? %>
-        <h2><%= @event.title %>'s past show times.</h2>
+        <h2>Past show times.</h2>
         <%= render 'event_times', event_times: @event.event_times.past, 
                                   event:       @event %>
       <% end %>

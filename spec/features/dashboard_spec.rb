@@ -99,6 +99,7 @@ RSpec.feature "dashboard", :type => :feature do
       expect(page).to have_content(event.title)
       expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(event.location)
+      expect(page).to have_link('view event', href: event_path(ticket.event_time.event))
     end
   end
 end
