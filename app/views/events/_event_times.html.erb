@@ -3,7 +3,9 @@
     <tr>
       <th>Start Time</th>
       <th>End Time</th>
-      <th>Attendees</th>
+      <% if current_user == event.manager %>
+        <th>Attendees</th>
+      <% end %>
       <th></th>
     </tr>
   </thead>
@@ -12,9 +14,13 @@
       <tr>
         <td><%= event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
         <td><%= event_time.end_time.strftime('%A %b %e @ %l:%M %p') %></td>
-        <td><%= link_to "0", coming_soon_path, class: "btn btn-danger" %></td>
-        <% if event_time.upcoming? %>
-          <td><%= link_to "edit", edit_event_event_time_path(@event, event_time), class: "btn btn-default" %></td>
+        <% if current_user == event.manager %>
+          <td><%= link_to "0", coming_soon_path, class: "btn btn-danger" %></td>
+        <% end %>
+        <% if current_user == event.manager && event_time.upcoming? %>
+          <td><%= link_to "edit", edit_event_event_time_path(event, event_time), class: "btn btn-default" %></td>
+        <% elsif event_time.upcoming? %>
+          <td><%= link_to "buy ticket", coming_soon_path, class: "btn btn-primary" %></td>
         <% end %>
       </tr>
     <% end %>

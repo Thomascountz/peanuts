@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Start Time</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.event_time.event.title %></td>
+        <td><%= ticket.event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
+        <td><%= ticket.event_time.event.location %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
