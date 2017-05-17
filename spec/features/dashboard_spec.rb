@@ -76,13 +76,30 @@ RSpec.feature "dashboard", :type => :feature do
     end
   end
 
+  # let ticket be a factory ticket
+  let(:ticket) { create(:ticket) }
+  # let event be the ticket's event_time's event
+  let(:event) { ticket.event_time.event}
+  # let patron be ticket's attendee
+  let(:patron) { ticket.attendee }
+
+
   context 'When a patron is signed in' do
-    xscenario 'user sees the details of their purchased tickets' do
-      # let ticket be a factory ticket
-      # let patron be ticket's attendee
-      # login as attendee
+    # login as patron
+    before do
+      ticket
+      event
+      patron
+      login_as(patron) 
+    end
+
+    scenario 'user sees the details of their purchased tickets' do
       # visit dashboard
+      visit '/dashboard'
       # expect to see ticket's event title, start time, and location
+      expect(page).to have_content(event.title)
+      expect(page).to have_content(event.start_time)
+      expect(page).to have_content(event.location)
     end
   end
 end
