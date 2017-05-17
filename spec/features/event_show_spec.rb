@@ -24,10 +24,11 @@ RSpec.feature "event show page", :type => :feature do
 
     scenario 'user visits event page' do
       expect(page).to have_content(event.title)
-      expect(page).to have_content('upcoming')
+      expect(page).to have_content(event.description)
+      expect(page).to have_content('Upcoming')
       expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content('past')
+      expect(page).to have_content('Past')
       expect(page).to have_content(past_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(past_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_link('edit')
@@ -44,7 +45,7 @@ RSpec.feature "event show page", :type => :feature do
       select_date_and_time(new_event_time.end_time, from: :event_time_end_time)
       page.click_button('Submit')
       expect(current_path).to eq(event_path(event))
-      expect(page).to have_content('upcoming show times')
+      expect(page).to have_content('Upcoming')
       expect(page).to have_content(new_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(new_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
     end
