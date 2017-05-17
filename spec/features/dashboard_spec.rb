@@ -75,4 +75,14 @@ RSpec.feature "dashboard", :type => :feature do
       expect(body).to_not have_content(event.title)
     end
   end
+
+  context 'When a patron is signed in' do
+    xscenario 'user sees the details of their purchased tickets' do
+      # let ticket be a factory ticket
+      # let patron be ticket's attendee
+      # login as attendee
+      # visit dashboard
+      # expect to see ticket's event title, start time, and location
+    end
+  end
 end

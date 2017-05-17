@@ -86,6 +86,13 @@ RSpec.feature "event show page", :type => :feature do
       expect(page).to have_link("buy ticket")
     end
 
+    xscenario 'user purchases a ticket from the event page' do
+      # Visit the event page
+      # When a user clicks
+      # The current path should be the dashboard
+      # There we should see the event title, start time, and location and a link to cancel?
+    end
+
   end
 
 end
