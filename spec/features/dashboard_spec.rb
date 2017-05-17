@@ -16,11 +16,13 @@ RSpec.feature "dashboard", :type => :feature do
   end
 
   context 'When a user is signed in' do
-    before { login_as(user) }
+    before do
+      login_as(user) 
+      visit '/dashboard'
+    end
 
     scenario 'user creates a new event' do
       # Create event, first with invalid inputs
-      visit '/dashboard'
       expect(page).to have_link('', href: '/events/new', count: 2)
       page.click_link('sell tickets')
       expect(current_path).to eq('/events/new')
@@ -50,6 +52,7 @@ RSpec.feature "dashboard", :type => :feature do
     before do
       event
       login_as(event.manager)
+      visit '/dashboard'
     end 
 
     scenario 'they edit an event' do
@@ -57,7 +60,6 @@ RSpec.feature "dashboard", :type => :feature do
       new_title = 'New Title'
 
       # First with invalid input
-      visit '/dashboard'
       page.click_link('edit', :match => :first)
       page.fill_in('Title', with: invalid_title)
       page.click_button('Submit')
@@ -73,7 +75,6 @@ RSpec.feature "dashboard", :type => :feature do
     end
 
     scenario 'they delete an event' do
-      visit '/dashboard'
       page.click_link('edit', :match => :first)
       expect(page).to have_button('Cancel my event')
       page.click_button('Cancel my event')
@@ -90,11 +91,11 @@ RSpec.feature "dashboard", :type => :feature do
       event
       patron
       login_as(patron) 
+      visit '/dashboard'
     end
 
     xscenario 'user sees the details of their purchased tickets' do
       # visit dashboard
-      visit '/dashboard'
       # expect to see ticket's event title, start time, and location
       expect(page).to have_content(event.title)
       expect(page).to have_content(event.start_time)
