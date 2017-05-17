@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.feature "dashboard", :type => :feature do
 
   let(:user) { create(:user) }
-  let(:event) { create(:event) }
+  let(:event_time) { create(:event_time) }
+  let(:event) { event_time.event }
   let(:patron) { create(:attendee) }
-  let(:ticket) { create(:ticket, attendee: patron, event_time: event.event_time) }
+  let(:ticket) { create(:ticket, attendee: patron, event_time: event_time) }
 
   context 'When a user is not signed in' do
     scenario 'user visit their dashboard' do
@@ -94,9 +95,7 @@ RSpec.feature "dashboard", :type => :feature do
       visit '/dashboard'
     end
 
-    xscenario 'user sees the details of their purchased tickets' do
-      # visit dashboard
-      # expect to see ticket's event title, start time, and location
+    scenario 'user sees the details of their purchased tickets' do
       expect(page).to have_content(event.title)
       expect(page).to have_content(event.start_time)
       expect(page).to have_content(event.location)
