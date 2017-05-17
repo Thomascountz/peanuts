@@ -77,18 +77,19 @@ RSpec.feature "event show page", :type => :feature do
 
   context 'when logged in as patron' do
 
-    before { login_as(patron) }
+    before do
+      login_as(patron)
+      visit event_path(event_time.event)
+    end
 
     scenario 'user visits the event page' do
-      visit event_path(event_time.event)
       expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_link("buy ticket")
     end
 
     xscenario 'user purchases a ticket from the event page' do
-      # Visit the event page
-      # When a user clicks
+      # When a user clicks buy ticket
       # The current path should be the dashboard
       # There we should see the event title, start time, and location and a link to cancel?
     end
