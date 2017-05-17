@@ -97,7 +97,7 @@ RSpec.feature "dashboard", :type => :feature do
 
     scenario 'user sees the details of their purchased tickets' do
       expect(page).to have_content(event.title)
-      expect(page).to have_content(event.start_time)
+      expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(event.location)
     end
   end
