@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.feature "dashboard", :type => :feature do
 
+  let(:user) { create(:user) }
+  let(:event) { create(:event) }
+  let(:patron) { create(:attendee) }
+  let(:ticket) { create(:ticket, attendee: patron, event_time: event.event_time) }
+
   context 'When a user is not signed in' do
     scenario 'user visit their dashboard' do
       visit '/dashboard'
@@ -10,11 +15,10 @@ RSpec.feature "dashboard", :type => :feature do
     end
   end
 
-  context 'When an event manager is signed in' do
-    scenario 'user creates a new event' do
-      user = create(:user)
-      login_as(user)
+  context 'When a user is signed in' do
+    before { login_as(user) }
 
+    scenario 'user creates a new event' do
       # Create event, first with invalid inputs
       visit '/dashboard'
       expect(page).to have_link('', href: '/events/new', count: 2)
@@ -40,10 +44,15 @@ RSpec.feature "dashboard", :type => :feature do
       expect(page).to have_css('div.alert')
       expect(body).to have_content(event.title)
     end
+  end
+
+  context 'When an event manager is signed in' do
+    before do
+      event
+      login_as(event.manager)
+    end 
 
     scenario 'they edit an event' do
-      event = create(:event)
-      login_as(event.manager)
       invalid_title = "a" * 51
       new_title = 'New Title'
 
@@ -64,8 +73,6 @@ RSpec.feature "dashboard", :type => :feature do
     end
 
     scenario 'they delete an event' do
-      event = create(:event)
-      login_as(event.manager)
       visit '/dashboard'
       page.click_link('edit', :match => :first)
       expect(page).to have_button('Cancel my event')
@@ -76,14 +83,6 @@ RSpec.feature "dashboard", :type => :feature do
     end
   end
 
-  # let ticket be a factory ticket
-  let(:ticket) { create(:ticket) }
-  # let event be the ticket's event_time's event
-  let(:event) { ticket.event_time.event}
-  # let patron be ticket's attendee
-  let(:patron) { ticket.attendee }
-
-
   context 'When a patron is signed in' do
     # login as patron
     before do
@@ -93,7 +92,7 @@ RSpec.feature "dashboard", :type => :feature do
       login_as(patron) 
     end
 
-    scenario 'user sees the details of their purchased tickets' do
+    xscenario 'user sees the details of their purchased tickets' do
       # visit dashboard
       visit '/dashboard'
       # expect to see ticket's event title, start time, and location
