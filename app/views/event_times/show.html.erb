@@ -18,7 +18,7 @@
             <th>Email</th>
           </tr>
         </thead>
-        <% @event_time.tickets.each do |ticket| %>
+        <% @tickets.each do |ticket| %>
           <tbody>
             <td><%= ticket.attendee.first_name %></td>
             <td><%= ticket.attendee.last_name %></td>
