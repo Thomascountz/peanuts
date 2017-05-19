@@ -21,4 +21,12 @@ RSpec.feature "event time show page", :type => :feature do
 			expect(page).to have_content(attendee.email)			
 		end
 	end
+
+	context 'when not logged in' do
+		before { visit event_event_time_path(event_time, event) }
+		scenario 'user visits the event time show page' do
+			expect(current_path).to eq('/users/sign_in')
+      expect('.alert').to be_present
+		end
+	end
 end
