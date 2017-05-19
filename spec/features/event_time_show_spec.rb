@@ -4,14 +4,14 @@ RSpec.feature "event time show page", :type => :feature do
 
 	let(:event) { create(:event) }
   let(:event_time) { create(:event_time, event: event) }
-  let(:ticket) { create (:ticket) }
-  let(:attendee) { ticket.attendee }
+  let(:attendee) { create(:attendee) }
+  let(:ticket) { create(:ticket, event_time: event_time, attendee: attendee) }
 
 	context 'when logged in as event manager' do
 
 		before do
 		 login_as(event.manager)
-		 visit event_time_path(event_time)
+		 visit event_event_time_path(event, event_time)
 		end
 
 		scenario 'user visits the event time show page' do
