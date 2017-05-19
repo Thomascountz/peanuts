@@ -1,5 +1,15 @@
 class EventTimesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
+  def show
+    @event = Event.find(params[:event_id])
+    @event_time = EventTime.find(params[:id])
+    @tickets = @event_time.tickets.includes(:attendee)
+    unless current_user == @event.manager
+      flash[:danger] = "Something went wrong."
+      redirect_to dashboard_path 
+    end
+  end
 
   def new
     @event = Event.find(params[:event_id])

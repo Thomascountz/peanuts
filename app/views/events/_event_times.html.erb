@@ -15,7 +15,7 @@
         <td><%= event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
         <td><%= event_time.end_time.strftime('%A %b %e @ %l:%M %p') %></td>
         <% if current_user == event.manager %>
-          <td><%= link_to "0", coming_soon_path, class: "btn btn-danger" %></td>
+          <td><%= link_to "#{event_time.tickets.count}", event_event_time_path(event, event_time), class: "btn btn-primary" %></td>
         <% end %>
         <% if current_user == event.manager && event_time.upcoming? %>
           <td><%= link_to "edit", edit_event_event_time_path(event, event_time), class: "btn btn-default" %></td>
