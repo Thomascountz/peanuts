@@ -10,22 +10,22 @@
       <h2>You currently have attendees.</h2>
       <p>When you have your first attendees, their name and email will show up here!</a></p>
     <% else %>
-      <% @event_time.tickets.each do |ticket| %>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <% @event_time.tickets.each do |ticket| %>
           <tbody>
             <td><%= ticket.attendee.first_name %></td>
             <td><%= ticket.attendee.last_name %></td>
             <td><%= ticket.attendee.email %></td>
           </tbody>
-        </table>
-      <% end %>
+        <% end %>
+      </table>
     <% end %>
   </div>
 </div>
