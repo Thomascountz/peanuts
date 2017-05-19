@@ -3,6 +3,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @ticket = Ticket.new
   end
 
   def new
