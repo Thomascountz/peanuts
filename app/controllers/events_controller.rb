@@ -26,6 +26,10 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    unless current_user == @event.manager
+      flash[:danger] = "Something went wrong."
+      redirect_to dashboard_path 
+    end
   end
 
   def update
