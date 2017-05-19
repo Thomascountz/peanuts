@@ -1,5 +1,8 @@
 class EventTimesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:show, :new, :create, :edit, :update, :destroy]
+
+  def show
+  end
 
   def new
     @event = Event.find(params[:event_id])
