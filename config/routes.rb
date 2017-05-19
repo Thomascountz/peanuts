@@ -10,5 +10,7 @@ Rails.application.routes.draw do
       resources :event_times, only: [:new, :create, :edit, :update, :destroy]
   end
 
+  resouces :tickets, only: [:create]
+
   root 'static_pages#index'
 end
