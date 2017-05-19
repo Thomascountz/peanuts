@@ -1,6 +1,10 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new, :create, :edit, :update, :destroy]
 
+  def index
+    @events = Event.all
+  end
+
   def show
     @event = Event.find(params[:id])
     @ticket = Ticket.new
