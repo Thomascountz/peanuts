@@ -7,9 +7,6 @@ class TicketsController < ApplicationController
   	if ticket.save
   		flash[:success] = "You've purchsed a ticket for #{event_time.event.title}!"
   		redirect_to dashboard_url
-  	else
- 			flash[:danger] = "Sorry, something went wrong. Please try again."
- 			redirect_to dashboard_url
  		end
   end
 
