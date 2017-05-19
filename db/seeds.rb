@@ -64,5 +64,6 @@ event_4.event_times.create(start_time: Time.zone.now + 38.hours, end_time: Time.
 event_4.event_times.create(start_time: Time.zone.now + 42.hours, end_time: Time.zone.now + 45.hours)
 
 ticket_1 = dottie.tickets.create(event_time: event_1.event_times.second)
-ticket_2 = dan.tickets.create(event_time: event_4.event_times.first)
-ticket_3 = dan.tickets.create(event_time: event_4.event_times.fourth)
+ticket_2 = dottie.tickets.create(event_time: event_1.event_times.second)
+ticket_3 = dan.tickets.create(event_time: event_4.event_times.first)
+ticket_4 = dan.tickets.create(event_time: event_4.event_times.fourth)
