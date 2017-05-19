@@ -22,7 +22,6 @@
         <% elsif event_time.upcoming? %>
           <td>
             <%= form_for(ticket) do |f| %>
-              <%= f.hidden_field :attendee_id, :value => current_user.id %>
               <%= f.hidden_field :event_time_id, :value => event_time.id %>
               <%= f.submit 'buy ticket', class: 'btn btn-primary' %>
             <% end %>
