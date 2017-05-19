@@ -10,8 +10,9 @@ RSpec.feature "event time show page", :type => :feature do
 	context 'when logged in as event manager' do
 
 		before do
-		 login_as(event.manager)
-		 visit event_event_time_path(event, event_time)
+			ticket
+			login_as(event.manager)
+			visit event_event_time_path(event_time, event)
 		end
 
 		scenario 'user visits the event time show page' do

@@ -1,0 +1,22 @@
+<h1><%= "#{@event.title}'s attendees" %></h1>
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1">
+    <h4>
+    <%= @event_time.start_time.strftime('%A %b %e @ %l:%M %p') %> to
+    <%= @event_time.end_time.strftime('%A %b %e @ %l:%M %p') %>
+  </h4>
+  <br />
+    <% if @event_time.tickets.empty? %>
+      <h2>You currently have attendees.</h2>
+      <p>When you have your first attendees, their name and email will show up here!</a></p>
+    <% else %>
+      <% @event_time.tickets.each do |ticket| %>
+        <div>
+          <%= ticket.attendee.first_name %>
+          <%= ticket.attendee.last_name %>
+          <%= ticket.attendee.email %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
