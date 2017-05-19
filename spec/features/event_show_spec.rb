@@ -88,18 +88,15 @@ RSpec.feature "event show page", :type => :feature do
     scenario 'user visits the event page' do
       expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
       expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_link("buy ticket")
+      expect(page).to have_button("buy ticket")
     end
 
     scenario 'user purchases a ticket from the event page' do
       visit dashboard_path
       expect(page).to_not have_content(event.title)
       visit event_path(event)
-      # When a user clicks buy ticket
-      page.click_link('buy ticket', :match => :first)
-      # The current path should be the dashboard
+      page.click_button('buy ticket', :match => :first)
       expect(current_path).to eq(dashboard_path)
-      # There we should see the event title, start time, and location and a link to cancel?
       expect(page).to have_content(event.title)
     end
 

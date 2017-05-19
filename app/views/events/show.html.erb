@@ -13,12 +13,14 @@
       <% if !@event.event_times.upcoming.empty? %>
         <h2>Upcoming show times.</h2>
         <%= render 'event_times', event_times: @event.event_times.upcoming, 
-                                  event:       @event %>
+                                  event:       @event, 
+                                  ticket:      @ticket %>
       <% end %>
       <% if !@event.event_times.past.empty? %>
         <h2>Past show times.</h2>
         <%= render 'event_times', event_times: @event.event_times.past, 
-                                  event:       @event %>
+                                  event:       @event,
+                                  ticket:      @ticket %>
       <% end %>
     <% end %>
   </div>
