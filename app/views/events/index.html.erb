@@ -1,0 +1,28 @@
+<h1>Browse All Events</h1>
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1">
+    <% if @events.empty? %>
+      <h2>There are no events listed on Peanuts!.</h2>
+      <p>Be the first to host an event! Get started <%= link_to "here", new_event_path %>.</p>
+    <% else %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @events.each do |event| %>
+          <tbody>
+            <td><%= event.title %></td>
+            <td><%= event.description %></td>
+            <td><%= event.location %></td>
+            <td><%= link_to "more info", event_path(event), class: "btn btn-primary" %></td>
+          </tbody>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>
