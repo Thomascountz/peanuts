@@ -30,6 +30,10 @@ class EventTimesController < ApplicationController
   def edit
     @event = Event.find(params[:event_id])
     @event_time = EventTime.find(params[:id])
+    unless current_user == @event.manager
+      flash[:danger] = "Something went wrong."
+      redirect_to dashboard_path 
+    end
   end
 
   def update
