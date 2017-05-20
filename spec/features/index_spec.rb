@@ -9,7 +9,7 @@ RSpec.feature "homepage", :type => :feature do
     scenario 'User visits the hompage' do
       expect(page).to have_link('Log in', href: new_user_session_path)
       expect(page).to have_link('sell tickets', href: new_event_path)
-      expect(page).to have_link('buy tickets', href: coming_soon_path)
+      expect(page).to have_link('buy tickets', href: events_path)
     end
 
     scenario 'Signs in as Demo Dan' do
