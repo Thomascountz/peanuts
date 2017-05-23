@@ -64,10 +64,19 @@ RSpec.feature "event show page", :type => :feature do
     end
 
     scenario "user edits an existing event's event time" do
-      # Edit event time, with valid inputs
+      # Invalid inputs
+      invalid_start_time = (Time.zone.now - 12.hours).beginning_of_hour
+      invalid_end_time = (Time.zone.now + 16.hours).beginning_of_hour
+      page.click_link('edit', :match => :first)
+      select_date_and_time(invalid_start_time, from: :event_time_start_time)
+      select_date_and_time(invalid_end_time, from: :event_time_end_time)
+      page.click_button('Submit')
+      expect(current_path).to_not eq(event_path(event))
+      expect(page).to have_css('div#error_explaination')
+
+      # Valid input
       new_start_time = (Time.zone.now + 12.hours).beginning_of_hour
       new_end_time = (Time.zone.now + 16.hours).beginning_of_hour
-      page.click_link('edit', :match => :first)
       select_date_and_time(new_start_time, from: :event_time_start_time)
       select_date_and_time(new_end_time, from: :event_time_end_time)
       page.click_button('Submit')
