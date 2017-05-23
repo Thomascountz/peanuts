@@ -36,12 +36,24 @@ RSpec.feature "event show page", :type => :feature do
     end
 
     scenario 'user adds an event time to an event' do
+      # Invalid inputs
+      invalid_event_time = build_stubbed(:event_time, 
+                                         start_time: (Time.zone.now - 2.hours).beginning_of_hour,
+                                         end_time: (Time.zone.now + 3.hours).beginning_of_hour,
+                                         event: nil)
+      page.click_link('add tickets')
+      expect(page).to have_content(event.title)
+      select_date_and_time(invalid_event_time.start_time, from: :event_time_start_time)
+      select_date_and_time(invalid_event_time.end_time, from: :event_time_end_time)
+      page.click_button('Submit')
+      expect(current_path).to_not eq(event_path(event))
+      expect(page).to have_css('div#error_explaination')
+
+      # Valid inputs
       new_event_time = build_stubbed(:event_time, 
                                       start_time: (Time.zone.now + 2.hours).beginning_of_hour,
                                       end_time: (Time.zone.now + 3.hours).beginning_of_hour,
                                       event: nil)
-      page.click_link('add tickets')
-      expect(page).to have_content(event.title)
       select_date_and_time(new_event_time.start_time, from: :event_time_start_time)
       select_date_and_time(new_event_time.end_time, from: :event_time_end_time)
       page.click_button('Submit')
