@@ -11,6 +11,7 @@ RSpec.feature "event show page", :type => :feature do
     past_event_time
   end
   let(:patron) { create(:user) }
+  let(:user) { create(:user, first_name: 'Jeff', last_name: 'Martin') }
 
   context 'when logged in as the event manager' do    
 
@@ -100,6 +101,19 @@ RSpec.feature "event show page", :type => :feature do
       expect(page).to have_content(event.title)
     end
 
+  end
+
+  context 'when a non-event manager is signed in' do
+    before do
+      event_time
+      user
+      login_as(user)
+    end
+    scenario "user tries to edit another user's event time" do
+      visit edit_event_event_time_path(event, event_time)
+      expect(current_path).to eq(dashboard_path)
+      expect(page).to have_css('div.alert')
+    end
   end
 
 end
