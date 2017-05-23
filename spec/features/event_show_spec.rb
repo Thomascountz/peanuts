@@ -11,6 +11,7 @@ RSpec.feature "event show page", :type => :feature do
     past_event_time
   end
   let(:patron) { create(:user) }
+  let(:user) { create(:user, first_name: 'Jeff', last_name: 'Martin') }
 
   context 'when logged in as the event manager' do    
 
@@ -35,12 +36,24 @@ RSpec.feature "event show page", :type => :feature do
     end
 
     scenario 'user adds an event time to an event' do
+      # Invalid inputs
+      invalid_event_time = build_stubbed(:event_time, 
+                                         start_time: (Time.zone.now - 2.hours).beginning_of_hour,
+                                         end_time: (Time.zone.now + 3.hours).beginning_of_hour,
+                                         event: nil)
+      page.click_link('add tickets')
+      expect(page).to have_content(event.title)
+      select_date_and_time(invalid_event_time.start_time, from: :event_time_start_time)
+      select_date_and_time(invalid_event_time.end_time, from: :event_time_end_time)
+      page.click_button('Submit')
+      expect(current_path).to_not eq(event_path(event))
+      expect(page).to have_css('div#error_explaination')
+
+      # Valid inputs
       new_event_time = build_stubbed(:event_time, 
                                       start_time: (Time.zone.now + 2.hours).beginning_of_hour,
                                       end_time: (Time.zone.now + 3.hours).beginning_of_hour,
                                       event: nil)
-      page.click_link('add tickets')
-      expect(page).to have_content(event.title)
       select_date_and_time(new_event_time.start_time, from: :event_time_start_time)
       select_date_and_time(new_event_time.end_time, from: :event_time_end_time)
       page.click_button('Submit')
@@ -51,10 +64,19 @@ RSpec.feature "event show page", :type => :feature do
     end
 
     scenario "user edits an existing event's event time" do
-      # Edit event time, with valid inputs
+      # Invalid inputs
+      invalid_start_time = (Time.zone.now - 12.hours).beginning_of_hour
+      invalid_end_time = (Time.zone.now + 16.hours).beginning_of_hour
+      page.click_link('edit', :match => :first)
+      select_date_and_time(invalid_start_time, from: :event_time_start_time)
+      select_date_and_time(invalid_end_time, from: :event_time_end_time)
+      page.click_button('Submit')
+      expect(current_path).to_not eq(event_path(event))
+      expect(page).to have_css('div#error_explaination')
+
+      # Valid input
       new_start_time = (Time.zone.now + 12.hours).beginning_of_hour
       new_end_time = (Time.zone.now + 16.hours).beginning_of_hour
-      page.click_link('edit', :match => :first)
       select_date_and_time(new_start_time, from: :event_time_start_time)
       select_date_and_time(new_end_time, from: :event_time_end_time)
       page.click_button('Submit')
@@ -100,6 +122,19 @@ RSpec.feature "event show page", :type => :feature do
       expect(page).to have_content(event.title)
     end
 
+  end
+
+  context 'when a non-event manager is signed in' do
+    before do
+      event_time
+      user
+      login_as(user)
+    end
+    scenario "user tries to edit another user's event time" do
+      visit edit_event_event_time_path(event, event_time)
+      expect(current_path).to eq(dashboard_path)
+      expect(page).to have_css('div.alert')
+    end
   end
 
 end

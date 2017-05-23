@@ -102,4 +102,17 @@ RSpec.feature "dashboard", :type => :feature do
       expect(page).to have_link('view event', href: event_path(ticket.event_time.event))
     end
   end
+
+  context 'when a non-event manager is signed in' do
+    before do
+      event
+      user
+      login_as(user)
+    end
+    scenario "user tries to edit another user's event" do
+      visit edit_event_path(event)
+      expect(current_path).to eq(dashboard_path)
+      expect(page).to have_css('div.alert')
+    end
+  end
 end
