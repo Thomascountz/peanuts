@@ -12,7 +12,7 @@
       <tr>
         <td><%= ticket.event_time.event.title %></td>
         <td><%= ticket.event_time.event.location %></td>
-        <td><%= ticket.event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
+        <td><%= datetime_formatter(ticket.event_time.start_time) %></td>
         <td><%= link_to "view event", event_path(ticket.event_time.event), class: "btn btn-primary" %></td>
       </tr>
     <% end %>
