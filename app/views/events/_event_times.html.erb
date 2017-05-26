@@ -19,7 +19,8 @@
         <% end %>
         <% if current_user == event.manager && event_time.upcoming? %>
           <td><%= link_to "edit", edit_event_event_time_path(event, event_time), class: "btn btn-default" %></td>
-        <% elsif event_time.upcoming? %>
+        <% end %>
+        <% if event_time.upcoming? %>
           <td>
             <%= form_for(ticket) do |f| %>
               <%= f.hidden_field :event_time_id, :value => event_time.id %>
