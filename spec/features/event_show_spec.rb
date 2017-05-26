@@ -130,6 +130,13 @@ RSpec.feature "event show page", :type => :feature do
       user
       login_as(user)
     end
+    
+    scenario "user tries to create a new event time for another user's event" do
+      visit new_event_event_time_path(event, event_time)
+      expect(current_path).to eq(dashboard_path)
+      expect(page).to have_css('div.alert')
+    end
+
     scenario "user tries to edit another user's event time" do
       visit edit_event_event_time_path(event, event_time)
       expect(current_path).to eq(dashboard_path)
