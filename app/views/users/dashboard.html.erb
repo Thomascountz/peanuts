@@ -1,7 +1,8 @@
-<h1>Hello <%= @user.first_name %>!</h1>
-<%= link_to "sell tickets", new_event_path, class: "btn btn-lg btn-primary" %>
-<%= link_to "buy tickets", events_path, class: "btn btn-lg btn-primary" %>
-
+ <div class="col-sm-12">
+  <h1>Hello <%= @user.first_name %>!</h1>
+  <%= link_to "sell tickets", new_event_path, class: "btn btn-lg btn-primary" %>
+  <%= link_to "buy tickets", events_path, class: "btn btn-lg btn-primary" %>
+</div>
 <br />
 <div class="row">
   <div class="col-sm-10 col-sm-offset-1">
