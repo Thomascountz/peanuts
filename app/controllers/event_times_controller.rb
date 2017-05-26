@@ -14,6 +14,10 @@ class EventTimesController < ApplicationController
   def new
     @event = Event.find(params[:event_id])
     @event_time = @event.event_times.build
+    unless current_user == @event.manager
+      flash[:danger] = "Something went wrong."
+      redirect_to dashboard_path 
+    end
   end
 
   def create
