@@ -27,11 +27,11 @@ RSpec.feature "event show page", :type => :feature do
       expect(page).to have_content(event.title)
       expect(page).to have_content(event.description)
       expect(page).to have_content('Upcoming')
-      expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(datetime_formatter(event_time.start_time))
+      expect(page).to have_content(datetime_formatter(event_time.end_time))
       expect(page).to have_content('Past')
-      expect(page).to have_content(past_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content(past_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(datetime_formatter(past_event_time.start_time))
+      expect(page).to have_content(datetime_formatter(past_event_time.end_time))
       expect(page).to have_link('edit')
     end
 
@@ -59,8 +59,8 @@ RSpec.feature "event show page", :type => :feature do
       page.click_button('Submit')
       expect(current_path).to eq(event_path(event))
       expect(page).to have_content('Upcoming')
-      expect(page).to have_content(new_event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content(new_event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(datetime_formatter(new_event_time.start_time))
+      expect(page).to have_content(datetime_formatter(new_event_time.end_time))
     end
 
     scenario "user edits an existing event's event time" do
@@ -82,8 +82,8 @@ RSpec.feature "event show page", :type => :feature do
       page.click_button('Submit')
       expect(current_path).to eq(event_path(event))
       expect(page).to have_css('div.alert')
-      expect(page).to have_content(new_start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content(new_end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(datetime_formatter(new_start_time))
+      expect(page).to have_content(datetime_formatter(new_end_time))
     end
 
     scenario "user deletes an existing event's event time" do
@@ -92,7 +92,7 @@ RSpec.feature "event show page", :type => :feature do
       page.click_button('Cancel this showtime')
       expect(current_path).to eq(event_path(event))
       expect(page).to have_css('div.alert')
-      expect(page).to_not have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to_not have_content(datetime_formatter(event_time.start_time))
     end
   end
 
@@ -108,8 +108,8 @@ RSpec.feature "event show page", :type => :feature do
     end
 
     scenario 'user visits the event page' do
-      expect(page).to have_content(event_time.start_time.strftime('%A %b %e @ %l:%M %p'))
-      expect(page).to have_content(event_time.end_time.strftime('%A %b %e @ %l:%M %p'))
+      expect(page).to have_content(datetime_formatter(event_time.start_time))
+      expect(page).to have_content(datetime_formatter(event_time.end_time))
       expect(page).to have_button("buy ticket")
     end
 

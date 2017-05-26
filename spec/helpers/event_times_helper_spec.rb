@@ -11,5 +11,9 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe EventTimesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'datetime formatter' do
+  	it 'returns datetime objects in a human readable format' do
+  		expect(helper.datetime_formatter(DateTime.new(2012, 07, 11, 20, 10, 0))).to eq("Wednesday Jul 11 @  8:10 PM")
+  	end
+  end
 end

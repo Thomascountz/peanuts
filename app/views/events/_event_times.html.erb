@@ -12,8 +12,8 @@
   <tbody>
     <% event_times.each do |event_time| %>
       <tr>
-        <td><%= event_time.start_time.strftime('%A %b %e @ %l:%M %p') %></td>
-        <td><%= event_time.end_time.strftime('%A %b %e @ %l:%M %p') %></td>
+        <td><%= datetime_formatter(event_time.start_time) %></td>
+        <td><%= datetime_formatter(event_time.end_time) %></td>
         <% if current_user == event.manager %>
           <td><%= link_to "#{event_time.tickets.count}", event_event_time_path(event, event_time), class: "btn btn-primary" %></td>
         <% end %>

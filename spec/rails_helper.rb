@@ -59,4 +59,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Devise::Test::IntegrationHelpers, type: :feature
+
+  # Include helper methods from Application Helper
+  config.include ApplicationHelper
 end
